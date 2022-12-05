@@ -29,13 +29,13 @@ private:
     void heightUpdater(Node* node);
     Node* rotateLeft(Node* node);
     Node* rotateRight(Node* node);
+    pair<string, int> searchTitle(Node *node, string title);
 
     Node* root;
     int count = 0;
 
 public:
     void insert(string title, pair<string, int> second);
-    pair<string, int> searchTitle(Node *node, string title);
     pair<string, int> operator[](string title);
     void findMovies(string genre);
     Map() : root() {}
