@@ -20,23 +20,23 @@ public:
     ~Node();
 };
 
-// implementing map as an AVL tree
+// implementing map as an AVL tree, given permission by to do so by Professor Aman
 class Map
 {
 private:
     Node* insertHelper(Node* node, string title, pair<string, int> second);
-    void findMoviesHelper(Node* node, string genre, int& counter);
+    void findMoviesHelper(Node* node, string genre);
+    void findYearsHelper(Node* node, string genre, int startYear, int endYear);
     void heightUpdater(Node* node);
     Node* rotateLeft(Node* node);
     Node* rotateRight(Node* node);
-    pair<string, int> searchTitle(Node *node, string title);
 
     Node* root;
     int count = 0;
 
 public:
     void insert(string title, pair<string, int> second);
-    pair<string, int> operator[](string title);
     void findMovies(string genre);
+    void findYears(string genre, int startYear, int endYear);
     Map() : root() {}
 };
