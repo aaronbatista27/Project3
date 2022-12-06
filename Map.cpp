@@ -155,45 +155,12 @@ Node* Map::rotateRight(Node *node)
     return newParent;
 }
 
-pair<string, int> Map::operator[](string title)
-{
-    return searchTitle(this->root, title);
-}
-
-pair<string, int> Map::searchTitle(Node *node, string title)
-{
-    //
-    if (node == nullptr)
-    {
-        this->count++;
-    }
-
-    //if new ufid < than current node's, travel down left branch
-    if (title < node->first)
-    {
-        return searchTitle(node->left, title);
-    }
-
-    //if new ufid > than current node's, travel down right branch
-    else if (title > node->first)
-    {
-        return searchTitle(node->right, title);
-    }
-
-    // if new title == current node, return pair
-    else if (title == node->first)
-    {
-        return node->second;
-    }
-}
-
 void Map::findMovies(string genre)
 {
-    int counter = 0;
-    findMoviesHelper(this->root, genre, counter);
+    findMoviesHelper(this->root, genre);
 }
 
-void Map::findMoviesHelper(Node *node, string genre, int &counter)
+void Map::findMoviesHelper(Node *node, string genre)
 {
     if (node == nullptr)
     {
@@ -201,12 +168,67 @@ void Map::findMoviesHelper(Node *node, string genre, int &counter)
     }
     else
     {
-        if (genre == node->second.first)
+        // start new stuff
+
+        int ASCIIone = 0;
+        int ASCIItwo = 0;
+
+        for (int i = 0; i < genre.size(); ++i)
         {
-            cout << node->first << endl;
+            ASCIIone += (int)toupper(genre.at(i));
         }
 
-        findMoviesHelper(node->left, genre, counter);
-        findMoviesHelper(node->right, genre, counter);
+        for (int j = 0; j < node->second.first.size(); ++j)
+        {
+            ASCIItwo += (int)toupper(node->second.first.at(j));
+        }
+
+        if (ASCIIone == ASCIItwo)
+        {
+            //cout << node->first << endl;
+        }
+
+        findMoviesHelper(node->left, genre);
+        findMoviesHelper(node->right, genre);
+    }
+}
+
+void Map::findYears(string genre, int startYear, int endYear)
+{
+    findYearsHelper(this->root, genre, startYear, endYear);
+}
+
+void Map::findYearsHelper(Node *node, string genre, int startYear, int endYear)
+{
+    if (node == nullptr)
+    {
+        cout << "";
+    }
+    else
+    {
+        int ASCIIone = 0;
+        int ASCIItwo = 0;
+
+        for (int i = 0; i < genre.size(); ++i)
+        {
+            ASCIIone += (int)toupper(genre.at(i));
+        }
+
+        for (int j = 0; j < node->second.first.size(); ++j)
+        {
+            ASCIItwo += (int)toupper(node->second.first.at(j));
+        }
+
+        if (ASCIIone == ASCIItwo)
+        {
+            int compare = node->second.second;
+            if ((startYear <= compare) && (endYear >= compare))
+            {
+                //cout << node->first << ", " << node->second.second << endl;
+            }
+        }
+
+        findYearsHelper(node->left, genre, startYear, endYear);
+        findYearsHelper(node->right, genre, startYear, endYear);
     }
 }
