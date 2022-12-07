@@ -25,9 +25,12 @@ void Map::insert(string title, pair<string, int> second)
     this->root = insertHelper(this->root, title, second);
 }
 
-// most of insertion for map is from Project 2: AVL. with permission from Professor Aman
+// insertHelper cited from Aaron Batista's AVL Project implementation
+// usage of Project 2 code permitted by Professor Aman
 Node* Map::insertHelper(Node *node, string title, pair<string, int> second)
 {
+    //lines 33-56 get logic from slide 28 of Module 4 - Balanced Trees
+    
     // if at bottom of tree, insert
     if (node == nullptr)
     {
@@ -89,6 +92,7 @@ Node* Map::insertHelper(Node *node, string title, pair<string, int> second)
     return node;
 }
 
+// heightUpdater from Aaron Batista's AVL Project
 void Map::heightUpdater(Node *node)
 {
     // no children
@@ -127,6 +131,7 @@ void Map::heightUpdater(Node *node)
     }
 }
 
+//cited from slide 12 in Module 4 - Balanced Trees
 Node* Map::rotateLeft(Node *node)
 {
     Node* grandchild = node->right->left;
@@ -141,6 +146,7 @@ Node* Map::rotateLeft(Node *node)
     return newParent;
 }
 
+//cited from slide 12 in Module 4 - Balanced Trees
 Node* Map::rotateRight(Node *node)
 {
     Node* grandchild = node->left->right;
@@ -155,6 +161,7 @@ Node* Map::rotateRight(Node *node)
     return newParent;
 }
 
+// for search by genre only
 void Map::findMovies(string genre)
 {
     findMoviesHelper(this->root, genre);
@@ -168,11 +175,10 @@ void Map::findMoviesHelper(Node *node, string genre)
     }
     else
     {
-        // start new stuff
-
         int ASCIIone = 0;
         int ASCIItwo = 0;
 
+        // convert genres to ASCII, compare values
         for (int i = 0; i < genre.size(); ++i)
         {
             ASCIIone += (int)toupper(genre.at(i));
@@ -183,6 +189,7 @@ void Map::findMoviesHelper(Node *node, string genre)
             ASCIItwo += (int)toupper(node->second.first.at(j));
         }
 
+        // if a match, print
         if (ASCIIone == ASCIItwo)
         {
             //cout << node->first << endl;
@@ -193,6 +200,7 @@ void Map::findMoviesHelper(Node *node, string genre)
     }
 }
 
+// for search by genre + year range
 void Map::findYears(string genre, int startYear, int endYear)
 {
     findYearsHelper(this->root, genre, startYear, endYear);
@@ -222,6 +230,8 @@ void Map::findYearsHelper(Node *node, string genre, int startYear, int endYear)
         if (ASCIIone == ASCIItwo)
         {
             int compare = node->second.second;
+            
+            // check if year fits in year range
             if ((startYear <= compare) && (endYear >= compare))
             {
                 //cout << node->first << ", " << node->second.second << endl;
