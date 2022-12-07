@@ -17,8 +17,6 @@ private:
 
 public:
     void insert(string genre, string name, int year);
-
-    //bool search(string genre, string name, int startYear, int endYear);
     void search(string genre, int startYear, int endYear);
 };
 
