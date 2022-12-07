@@ -13,6 +13,8 @@ int main()
 {
     Map map;
     Set hash;
+    
+    //Information courtesy of IMDb (https://www.imdb.com). Used with permission.
 
     // NOTE: the address of the read-in file must be changed per machine
     ifstream inFile("C:/Users/Aaron Batista/CLionProjects/MovieProject/newestMovieSet.csv");
