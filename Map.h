@@ -20,7 +20,6 @@ public:
     ~Node();
 };
 
-// implementing map as an AVL tree, given permission by to do so by Professor Aman
 class Map
 {
 private:
