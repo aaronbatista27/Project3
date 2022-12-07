@@ -22,14 +22,12 @@ int main()
     string value1;
     string value2;
     int year;
-
+    
     // initialize mapTime and hashTime with the same value;
     auto temp1 = high_resolution_clock::now();
     auto temp2 = high_resolution_clock::now();
     auto mapTime = duration_cast<microseconds>(temp2 - temp1);
     auto hashTime = duration_cast<microseconds>(temp2 - temp1);
-
-    //auto mapTime = duration_cast<microseconds>(0);
 
     while (getline(inFile, line))
     {
@@ -43,13 +41,13 @@ int main()
         getline(stream, value2);
         year = stoi(value2);
 
-        // time from before and after each of these functions
+        // get time before and after function
         auto startMap = high_resolution_clock::now();
         map.insert(key, make_pair(value1, year));
         auto endMap = high_resolution_clock::now();
         mapTime += duration_cast<microseconds>(endMap - startMap);
 
-        // time from before and after of each of these functions
+        // get time before and after function
         auto startHash = high_resolution_clock::now();
         hash.insert(value1, key, year);
         auto endHash = high_resolution_clock::now();
@@ -85,13 +83,13 @@ int main()
 
         cout << "Coming right up!" << endl;
 
-        // map doesn't print anything, still checks for timing purposes
+        // findMovies() doesn't print anything, still timed for analysis
         auto startMap = high_resolution_clock::now();
         map.findMovies(genres);
         auto endMap = high_resolution_clock::now();
         mapTime += duration_cast<microseconds>(endMap - startMap);
 
-        // hash prints the movies
+        // search() prints
         auto startHash = high_resolution_clock::now();
         hash.search(genres, -1, -1);
         auto endHash = high_resolution_clock::now();
@@ -121,13 +119,13 @@ int main()
 
         cout << "Coming right up!" << endl;
 
-        // map doesn't print anything, still checks for timing purposes
+        // findMovies() doesn't print anything, still timed for analysis
         auto startMap = high_resolution_clock::now();
         map.findYears(genres, startYear, endYear);
         auto endMap = high_resolution_clock::now();
         mapTime += duration_cast<microseconds>(endMap - startMap);
 
-        // hash prints the movies
+        // // search() prints
         auto startHash = high_resolution_clock::now();
         hash.search(genres, startYear, endYear);
         auto endHash = high_resolution_clock::now();
@@ -138,6 +136,8 @@ int main()
     }
 
     cout << endl;
+    
+    // total time for each data structure is printed at the end for comparison
     cout << "Map Time: " << mapTime.count() << " microseconds" << endl;
     cout << "Hash Time: " << hashTime.count() << " microseconds" << endl;
 
